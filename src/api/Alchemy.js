@@ -1,19 +1,52 @@
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const apiKey = 'VSKddYPa4heE_9WA0GDN2-c3e3-N_m0g';
-const baseURL = `https://eth-mainnet.g.alchemy.com/v2/${apiKey}/getNFTs/`;
-//Link up search with address
-const searchAddr = '0xfAE46f94Ee7B2Acb497CEcAFf6Cff17F621c693D';
+const {
+  REACT_APP_API_KEY
+} = process.env;
+
+const Alchemy = ({searchAddress}) => {
+
+  const [nftData, setNftData] = useState([]);
+  console.log(nftData);
+
+  useEffect(() => {
+    const baseURL = `https://eth-mainnet.g.alchemy.com/v2/${REACT_APP_API_KEY}/getNFTs/`;
+    const searchAddr = searchAddress; //replace with
+
+    var config = {
+      method: 'get',
+      url: `${baseURL}?owner=${searchAddr}`
+    };
+
+    axios(config)
+      .then(response => {
+        setNftData(response.data.ownedNfts)
+      })
+      //console.log(JSON.stringify(response.data, null,2)))
+      .catch(error => console.log(error));
+  }, [searchAddress]);
 
 
-//Take response, map through NFTs retry Alchemy for title & image url
+  const nftDisplay = (nftData) => {
+    return (
+      <div className='card'>
+        {
+          nftData.map(({title, metadata}) => (
+            <div className='card-content'>
+              <div className='nft card'>{title}</div>
+              <img src={`${metadata.image_url}`} alt={title}/>
+            </div>
+          ))
+        }
+      </div>
+    )
+  };
 
-var config = {
-    method: 'get',
-    url: `${baseURL}?owner=${searchAddr}`
+
+  return (
+    <div>{nftDisplay}</div>
+  )
 };
 
-axios(config)
-    .then(response => console.log(JSON.stringify(response.data, null,2)))
-    .catch(error => console.log(error));
-
+export default Alchemy;
