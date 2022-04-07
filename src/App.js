@@ -1,12 +1,14 @@
 import React from 'react';
-import Alchemy from './api/Alchemy';
 import AddressSearch from './components/AddressSearch';
+import Header from './components/Header';
+import "./App.css";
 
 
 const App = () => {
 
     return (
-        <div>
+        <div className='body'>
+            <Header />
             <AddressSearch />
         </div>
     );
