@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Alchemy.css';
+import fallback from '../images/fallback.png';
 
-const {
-  REACT_APP_API_KEY
-} = process.env;
+const { REACT_APP_API_KEY } = process.env;
 
 const Alchemy = ({searchAddress}) => {
 
@@ -31,21 +30,29 @@ const Alchemy = ({searchAddress}) => {
   //HANDLES IMAGE URLS
   const parseImgUrl = ({metadata, title, id}) => {
     let url = metadata.image || metadata.image_url;
+
     if (url.includes('ipfs')) {
       let modifiedUrl = url.replace('ipfs://', 'https://ipfs.io/ipfs/');
       return (
-        <img src={modifiedUrl} alt={`${id.tokenMetadata.tokenType} : ${title}`} className="image"/>
+          <img src={modifiedUrl} onError={(e)=>{e.target.onerror = null; e.target.src={fallback}}} alt={`${id.tokenMetadata.tokenType} : ${title}`} className="image"/>
       );
     }
-    return <img src={url} alt={`${id.tokenMetadata.tokenType} : ${title}`} className="image"/>;
+    return <img src={url} onError={(e)=>{e.target.onerror = null; e.target.src={fallback}}} alt={`${id.tokenMetadata.tokenType} : ${title}`} className="image"/>;
   };
+
+  //turns hexadecimal into decimal for opensea url
+  const parseTokenId = ({id}) => {
+    return parseInt(id.tokenId,16);
+  }
 
   return (
     <div className='cards'>
+      <div className='wallet-address'>{searchAddress}</div>
         {
           nftData.map((data) => (
             <div className='card-content' key={data.id.tokenId}>
               <div className='nft card'>{data.title}</div>
+              <a className="opensea-link" href={`https://opensea.io/assets/${data.contract.address}/${parseTokenId(data)}`} target="_blank" rel="noreferrer">View on OpenSea</a>
               {parseImgUrl(data)}
             </div>
           ))
@@ -56,11 +63,7 @@ const Alchemy = ({searchAddress}) => {
 
 export default Alchemy;
 
-
-/* Test Addresses
-0x4716d4596621dfaf15c6f91c8d5f378b3e49b605
-0x3f3095e5Fd52143F47fD4A89210b79127f62D07C
-
+/*
   Various image metadata labels:
     -image
     -image_url
