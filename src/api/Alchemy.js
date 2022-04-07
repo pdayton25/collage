@@ -31,13 +31,33 @@ const Alchemy = ({searchAddress}) => {
   const parseImgUrl = ({metadata, title, id}) => {
     let url = metadata.image || metadata.image_url;
 
+/*   
+    const handleOnError = (e) => {
+      e.target.src = {fallback}
+    }
+*/
+
     if (url.includes('ipfs')) {
       let modifiedUrl = url.replace('ipfs://', 'https://ipfs.io/ipfs/');
       return (
-          <img src={modifiedUrl} onError={(e)=>{e.target.onerror = null; e.target.src={fallback}}} alt={`${id.tokenMetadata.tokenType} : ${title}`} className="image"/>
+          <img 
+            src={modifiedUrl} 
+            onError={event => {
+              event.target.src= fallback
+              event.onerror=null
+            }} 
+            alt={`${id.tokenMetadata.tokenType} : ${title}`}
+            className="image"/>
       );
     }
-    return <img src={url} onError={(e)=>{e.target.onerror = null; e.target.src={fallback}}} alt={`${id.tokenMetadata.tokenType} : ${title}`} className="image"/>;
+    return <img src={url} 
+              onError={event => {
+              event.target.src= fallback
+              event.onerror=null
+              }} 
+              alt={`${id.tokenMetadata.tokenType} : ${title}`} 
+              className="image"
+            />;
   };
 
   //turns hexadecimal into decimal for opensea url
