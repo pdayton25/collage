@@ -1,0 +1,15 @@
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px;
+    width: 100%;
+}
+.card-content {
+    display: flex;
+    flex-direction: column;
+
+}
+.image {
+    max-width: 90vw;
+}
