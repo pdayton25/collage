@@ -1,0 +1,29 @@
+.search-container {
+    display: flex;
+    justify-content: center;
+}
+.search-bar {
+    padding: 0;
+    margin: 0;
+}
+.dropdown, .submit-btn {
+    height: 3rem;
+    width: 12rem;
+    background: linear-gradient(122deg, #4284DB 0%, #29EAC4 100%);
+    border: 1px solid white;
+    color: white;
+    font-size: 1rem;
+}
+.dropdown {
+    border-radius: 1.5rem 0 0 1.5rem;
+    padding-left: 1rem;
+}
+.submit-btn {
+    border-radius: 0 1.5rem 1.5rem 0;
+}
+.address-field {
+    height: 46px;
+    width: 25rem;
+    border-radius: none;
+    border: 1px solid white;
+}

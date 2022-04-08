@@ -1,8 +1,13 @@
 .primary-title {
-    font-size: 2rem;
+    display: flex;
+    font-size: 4rem;
     color: white;
-    font-family: 'Leckerli One';
+    font-family: 'Leckerli One', cursive;
+    justify-content: center;
 }
 .title-container {
-    padding: 3rem;
+    padding-top: 3rem;
+    padding-bottom: 1rem;
+    margin: 0 auto;
+    width: 90vw;
 }
