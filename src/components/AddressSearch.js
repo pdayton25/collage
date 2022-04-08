@@ -35,6 +35,7 @@ const randomAddress = (e) => {
                     <input
                         type="text"
                         className="address-field search-bar"
+                        placeholder="enter wallet address"
                         value={searchAddress}
                         onChange= {(e) => setSearchAddr(e.target.value)}
                     />
