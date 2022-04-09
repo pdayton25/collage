@@ -1,36 +1,51 @@
 .search-container {
     display: flex;
+    flex-direction: column;
+    width: 90vw;
     justify-content: center;
+    margin: 0 auto;
 }
 .search-bar {
     padding: 0;
     margin: 0;
+}
+
+.search-wrapper {
+    filter: drop-shadow(0px 4px 15px rgba(50, 55, 66, 0.75));
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
 }
 .dropdown, .submit-btn {
     height: 3rem;
     width: 12rem;
     border: 1px solid rgb(206, 204, 204);
     color: white;
-    font-size: 1rem;
+    font-size: 1.2rem;
 }
 .dropdown {
-    background: linear-gradient(122deg, #4284DB 0%, #29EAC4 100%);
+    background:linear-gradient(302deg, #4284DB 0%, #29EAC4 100%);
     border-radius: 1.5rem 0 0 1.5rem;
     padding-left: 1rem;
 }
 .submit-btn {
+    position: relative;
     z-index:1;
     background: linear-gradient(122deg, #4284DB 0%, #29EAC4 100%);
     border-radius: 0 1.5rem 1.5rem 0;
 }
 .submit-btn::before{
+    position: absolute;
+    top:0;
+    left: 0;
     content: "";
-    width: 192px;
-    height: 48px;
-    background: linear-gradient(122deg, red 0%, white 100%);
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(122deg, #29EAC4 0%, #4284DB 100%);
     opacity: 0;
-    transition: opacity 0.4s;
+    transition: opacity 0.5s;
     z-index: -1;
+    border-radius: 0 1.5rem 1.5rem 0;
 }
 .submit-btn:hover::before{
     opacity:1;
@@ -48,4 +63,28 @@
 form {
     display: flex;
     align-items:center;
+}
+.random-address-wrapper {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+}
+.random-wallet-text {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: white;
+    font-size: 1rem;
+    font-weight: 100;
+}
+.random-address {
+    all:unset;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 1.2rem;
+    padding-left: .5rem;
+    color:#84b3f0;
+    font-weight: 400;
+    transition: 500ms;
+}
+.random-address:hover{
+    color: #d5dfec;
 }
