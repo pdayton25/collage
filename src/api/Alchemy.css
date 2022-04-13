@@ -17,7 +17,6 @@
     display: flex;
     position: relative;
     flex-direction: column;
-    margin-bottom: 2rem;
 }
 .image {
     max-width: 100%;
@@ -56,7 +55,7 @@
     width: 90vw;
     grid-template-columns: 1fr 1fr;
     margin: auto 0;
-    grid-gap: 15px;
+    grid-gap: 20px;
     grid-auto-flow: dense;
 }
 .overlay {
