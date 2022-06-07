@@ -92,7 +92,7 @@ form {
     transition: 500ms;
 }
 .random-address:hover{
-    color: #ffffff;
+    color: #f4f4f4;
 }
 
 @media only screen and (max-width: 900px) {
