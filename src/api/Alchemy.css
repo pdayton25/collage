@@ -87,6 +87,9 @@
     .wallet-address {
         font-size: 1.25rem;
     }
+    .nft-wrapper {
+        grid-template-columns: 1fr;
+    }
 }
 @media only screen and (max-width: 600px) {
     .wallet-address {
