@@ -120,6 +120,7 @@
 
 @media only screen and (max-width: 500px) {
     .address-field, .submit-btn, .dropdown {
-        width: 75%;
+        width: 90%;
     }
+    
 }
