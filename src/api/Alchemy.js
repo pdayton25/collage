@@ -5,10 +5,10 @@ import fallback from '../images/fallback.png';
 
 const { REACT_APP_API_KEY } = process.env;
 
-const Alchemy = ({searchAddress}) => {
+const Alchemy = ({searchAddress, passNftData}) => {
 
   const [nftData, setNftData] = useState([]);
-  console.log(nftData);
+  passNftData(nftData);
 
   //API REQUEST
   useEffect(() => {
@@ -30,12 +30,6 @@ const Alchemy = ({searchAddress}) => {
   //HANDLES IMAGE URLS
   const parseImgUrl = ({metadata, title, id}) => {
     let url = metadata.image || metadata.image_url;
-
-/*
-    const style= {
-      gridRowEnd: `span ${getSpanEstimate()}`
-    }
-*/
 
     if (url === undefined) {
       return <img src= {fallback}
