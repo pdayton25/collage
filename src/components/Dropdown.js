@@ -3,8 +3,6 @@ import React, { useState } from "react";
 const Dropdown = (props) => {
 
     const [selected, setSelected] = useState('ethereum');
-    console.log(selected);
-
     props.passDropdownSelection(selected);
 
     return (

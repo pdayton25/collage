@@ -6,7 +6,7 @@ import fallback from '../images/fallback.png';
 const { REACT_APP_API_KEY } = process.env;
 
 const Alchemy = ({searchAddress, passNftData}) => {
-
+  
   const [nftData, setNftData] = useState([]);
   passNftData(nftData);
 
@@ -25,6 +25,9 @@ const Alchemy = ({searchAddress, passNftData}) => {
         setNftData(response.data.ownedNfts)
       })
       .catch(error => console.log(error));
+
+
+
   }, [searchAddress]);
 
   //HANDLES IMAGE URLS
