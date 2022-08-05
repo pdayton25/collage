@@ -14,6 +14,7 @@ const AddressSearch = ({passingNftData}) => {
     const [dropdownSelection, setDropdownSelection] = useState('');
     const [nftData, setNftData] = useState('');
     console.log(nftData);
+    
     /**** ROUTE API CALLS BASED ON DROPDOWN SELECTION */
 
     const onSubmit = (e) => {

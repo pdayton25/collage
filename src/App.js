@@ -9,7 +9,7 @@ const App = () => {
 
     const [nftData, setNftData] = useState([]);
     const [address, setAddress] = useState('');
-    
+
     console.log(nftData);
 
     return (
