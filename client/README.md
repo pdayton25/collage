@@ -1,5 +1,7 @@
 Collage.ooo
 
+<img src='./images/Homepage.png' style='margin: 0 auto; max-width: 500px'/>
+
 Collage is a site that allows users to view any wallet's NFT collection in a gallery format.
 Built using React, Collage connnects to the Alchemy API to display art & information about each piece.
 

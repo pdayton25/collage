@@ -9,7 +9,6 @@ const { REACT_APP_API_KEY } = process.env;
 const AlchemyAPI = ({searchAddress, passNftData}) => {
   
   const [nftData, setNftData] = useState([]);
-  passNftData(nftData);
   const [walletData, setWalletData] = useState([]);
   console.log(walletData);
 
@@ -34,7 +33,6 @@ const AlchemyAPI = ({searchAddress, passNftData}) => {
         network: Network.ETH_MAINNET, // Replace with your network.
         
       };
-      
       const alchemy = new Alchemy(settings);
       
       // Print all NFTs returned in the response:
@@ -47,14 +45,24 @@ const AlchemyAPI = ({searchAddress, passNftData}) => {
 
   //Process NFT Data
   useEffect(() => {
+    const filteredNfts = nftData.filter(hasUrl)
+    
+    function hasUrl(data) {
+      let url = data.rawMetadata.image || data.rawMetadata.image_url
+      if ( url !== undefined) {
+        return data;
+      }
+    }
+    
+    //creates wallet address structure
     const walletAddressData = {
       address: searchAddress,
       name: searchAddress,
       bio: null,
       profileImgUrl: null,
-      count: nftData.length,
+      count: filteredNfts.length,
       numProjects: 0,
-      nfts: nftData
+      nfts: filteredNfts
     };
     setWalletData(walletAddressData);
 
@@ -70,7 +78,7 @@ const AlchemyAPI = ({searchAddress, passNftData}) => {
         return null;
       } 
     });
-    console.log(uniqueContracts);
+    
   },[nftData])
 
 
