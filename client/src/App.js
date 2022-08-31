@@ -10,7 +10,6 @@ const App = () => {
     const [nftData, setNftData] = useState([]);
     const [address, setAddress] = useState('');
 
-
     return (
         <div className='body'>
             <Metamask />
@@ -19,11 +18,6 @@ const App = () => {
                 passingNftData = {setNftData}
                 address = {address}
             />
-
-            <div>
-                <p>Test</p>
-                
-            </div>
         </div>
     );
 };

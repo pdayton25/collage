@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import './Alchemy.css';
 import fallback from '../images/fallback.png';
 import {Network, Alchemy} from 'alchemy-sdk';
+import Skeleton from '../components/Skeleton';
+import Masonry from 'react-masonry-css'
 
 const { REACT_APP_API_KEY } = process.env;
 
@@ -10,34 +11,32 @@ const AlchemyAPI = ({searchAddress, passNftData}) => {
   
   const [nftData, setNftData] = useState([]);
   const [walletData, setWalletData] = useState([]);
+  const [isBusy, setIsBusy] = useState(true);
+
   console.log(walletData);
+
+  //masonry grid
+  const breakpoints = {
+    default: 3,
+    1100: 2,
+    750: 1,
+  }
 
   //API REQUEST
   useEffect(() => {
-    // const baseURL = `https://eth-mainnet.g.alchemy.com/v2/${REACT_APP_API_KEY}/getNFTs/`;
-    // const searchAddr = searchAddress;
-
-    // var config = {
-    //   method: 'get',
-    //   url: `${baseURL}?owner=${searchAddr}`
-    // };
-
-    // axios(config)
-    //   .then(response => {
-    //     setNftData(response.data.ownedNfts)
-    //   })
-    //   .catch(error => console.log(error));
-
+      setIsBusy(true);
       const settings = {
-        apiKey: REACT_APP_API_KEY, // Replace with your Alchemy API Key.
-        network: Network.ETH_MAINNET, // Replace with your network.
+        apiKey: REACT_APP_API_KEY, 
+        network: Network.ETH_MAINNET,
         
       };
       const alchemy = new Alchemy(settings);
-      
-      // Print all NFTs returned in the response:
+      console.log('working');
+
       alchemy.nft.getNftsForOwner(searchAddress).then(res => {
+        setIsBusy(false);
         setNftData(res.ownedNfts);
+        console.log('finished')
       });
 
 
@@ -61,26 +60,34 @@ const AlchemyAPI = ({searchAddress, passNftData}) => {
       bio: null,
       profileImgUrl: null,
       count: filteredNfts.length,
-      numProjects: 0,
-      nfts: filteredNfts
+      nfts: filteredNfts,
     };
     setWalletData(walletAddressData);
 
   }, [nftData, searchAddress]);
 
+
+
+
+
+
+
+  //SPLIT OUT INTO OWN COMPONENT
+
   //finds unique contract addresses
+  //refactor to work from walletData
   useEffect(() => {
     const uniqueContracts = [];
-    nftData.map(({contract}) => {
-      if(!uniqueContracts.includes(contract.address)) {
-        return uniqueContracts.push(contract.address);
-      } else {
-        return null;
-      } 
-    });
-    
-  },[nftData])
-
+    if(!isBusy) {
+      walletData.nfts.map(({contract}) => {
+        if(!uniqueContracts.includes(contract.address)) {
+          return uniqueContracts.push(contract.address);
+        } else { return null } 
+      });
+    } else {
+      return;
+    }
+  },[walletData, isBusy])
 
   //HANDLES IMAGE URLS
   const parseImgUrl = ({rawMetadata, title}) => {
@@ -112,18 +119,17 @@ const AlchemyAPI = ({searchAddress, passNftData}) => {
             />;
   };
 
-  //turns hexadecimal into decimal for opensea url
-  // const parseTokenId = ({tokenId}) => {
-  //   return parseInt(tokenId,16);
-  // }
-
   return (
     <div className='cards'>
       <div className='wallet-address'>{searchAddress}</div>
-      <div className='nft-wrapper'>
+      <Masonry
+        breakpointCols={breakpoints}
+        className='my-masonry-grid'
+        columnClassName='my-masonry-grid_column'
+      >
         {
           nftData.map((data, index) => (
-            <div className='card-content' key={index}>
+            <div key={index} className='nft-wrapper'>
               {parseImgUrl(data)}
               <div className='top-card-wrapper overlay'>
                 <div className='background-shade'>
@@ -140,17 +146,9 @@ const AlchemyAPI = ({searchAddress, passNftData}) => {
             </div>
           ))
         }
-        </div>
+      </Masonry>
       </div>
   )
 };
 
 export default AlchemyAPI;
-
-/*
-  Various image metadata labels:
-    -image
-    -image_url
- */
-
-    //${data.contract.address}/${parseTokenId(data)}
