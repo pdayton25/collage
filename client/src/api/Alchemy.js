@@ -12,7 +12,6 @@ const AlchemyAPI = ({searchAddress, passNftData}) => {
   const [nftData, setNftData] = useState([]);
   const [walletData, setWalletData] = useState([]);
   const [isBusy, setIsBusy] = useState(true);
-  console.log(walletData);
 
   //masonry grid breakpoints
   const breakpoints = {
